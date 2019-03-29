@@ -119,6 +119,21 @@ interface UtoolsWindowMethods {
   outPlugin(): boolean;
 }
 
+interface PathMap {
+  'home': string;
+  'appData': string;
+  'userData': string;
+  'temp': string;
+  'exe': string;
+  'desktop': string;
+  'documents': string;
+  'downloads': string;
+  'music': string;
+  'pictures': string;
+  'videos': string;
+  'logs': string;
+}
+
 interface UtoolsHelper {
   /**
    * 该方法只适用于在macOS下执行，用于判断uTools是否拥有辅助权限，如果没有可以调用API方法requestPrivilege请求
@@ -147,7 +162,7 @@ interface UtoolsHelper {
    * - `videos` 用户视频目录的路径
    * - `logs` 应用程序的日志文件夹
    */
-  getPath(name: string): string;
+  getPath<k extends keyof PathMap>(name: k): PathMap[k];
 }
 
 interface Utools extends UtoolsEvents, UtoolsWindowMethods, UtoolsHelper {
