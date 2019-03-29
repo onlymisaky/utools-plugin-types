@@ -1,6 +1,6 @@
-![效果预览](./1.png)
+![效果预览](./screenshots/1.png)
 
-![效果预览](./2.png)
+![效果预览](./screenshots/2.png)
 
 ## 说明
 
