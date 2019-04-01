@@ -11,6 +11,13 @@ interface PluginEnterCallback {
 }
 
 interface UtoolsEvents {
+
+  /**
+   * 当插件装载成功，uTools将会主动调用这个方法（生命周期内仅调用一次）。
+   * 注意：在此方法未被执行前，无法调用其他方法。
+   * */
+  onPluginReady(callback: Callback): void;
+
   /**
    * 每当插件从后台进入到前台时，uTools将会主动调用这个方法。
    * 注意：在此方法未被执行前，无法调用其他方法。
@@ -117,6 +124,58 @@ interface UtoolsWindowMethods {
   * 执行该方法将会退出当前插件。
   */
   outPlugin(): boolean;
+
+  /**
+  * 执行该方法将会弹出一个系统通知。
+  * @param {string} body 显示的内容
+  * @param {null|string} 用户点击系统通知时，uTools将会使用此`code`进入插件
+  * @param {boolean} silent 是否播放声音
+  */
+  showNotification(body: string, clickFeatureCode: null | string, silent: boolean): boolean;
+}
+
+interface CmdsType {
+  label: string;
+  type?: 'img' | 'over';
+}
+
+interface CmdsFileType extends CmdsType {
+  type: 'file';
+  fileType: 'file' | 'directory';
+  minNum: number;
+  maxNum: number;
+}
+
+interface CmdsRegType extends CmdsType {
+  type: 'regex'
+  match: RegExp;
+  minLength: number;
+  maxLength: number;
+}
+
+interface FeatureConf {
+  code?: string;
+  explain?: string;
+  cmds?: (string | CmdsType | CmdsFileType | CmdsRegType)[];
+}
+
+interface UtoolsFeatures {
+
+  /**
+   * 返回本插件所有动态增加的功能。
+   */
+  getFeatures(): string[] | null;
+
+  /**
+   * 为本插件动态新增某个功能。
+   * 
+   */
+  setFeature(featureConf: FeatureConf): boolean;
+
+  /**
+   * 动态删除本插件的某个功能。
+   */
+  removeFeature(featureCode: string): boolean;
 }
 
 interface PathMap {
@@ -165,7 +224,7 @@ interface UtoolsHelper {
   getPath<k extends keyof PathMap>(name: k): PathMap[k];
 }
 
-interface Utools extends UtoolsEvents, UtoolsWindowMethods, UtoolsHelper {
+interface Utools extends UtoolsEvents, UtoolsWindowMethods, UtoolsFeatures, UtoolsHelper {
   db: UtoolsDb
 }
 
