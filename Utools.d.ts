@@ -86,7 +86,7 @@ interface UtoolsDb {
   /**
    * 执行该方法将会获取所有数据库文档，如果传入字符串，则会返回以字符串开头的文档，也可以传入指定ID的数组，不传入则为获取所有文档。
    */
-  allDocs<T extends PutDb>(preKey: string | string[]): T[] | DbError;
+  allDocs<T extends PutDb>(preKey?: string | string[]): T[] | DbError;
 }
 
 interface UtoolsWindowMethods {
@@ -136,7 +136,7 @@ interface UtoolsWindowMethods {
 
 interface CmdsType {
   label: string;
-  type?: 'img' | 'over';
+  type?: string | 'img' | 'over';
 }
 
 interface CmdsFileType extends CmdsType {
