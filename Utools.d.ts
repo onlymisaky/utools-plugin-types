@@ -226,12 +226,12 @@ interface UtoolsHelper {
   /**
    * 复制图片到剪贴板
    */
-  copyImage(buffer: Buffer): any;
+  copyImage(buffer: Buffer): boolean;
 
   /**
    * 复制文件到剪贴板
    */
-  copyFile(filepaths: string): any;
+  copyFile(filepaths: string): boolean;
 }
 
 interface Utools extends UtoolsEvents, UtoolsWindowMethods, UtoolsFeatures, UtoolsHelper {
