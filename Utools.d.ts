@@ -222,18 +222,21 @@ interface UtoolsHelper {
    * - `logs` 应用程序的日志文件夹
    */
   getPath<k extends keyof PathMap>(name: k): PathMap[k];
-  
+
   /**
-   * todo https://yuanliao.info/d/499
-   * 官方文档暂未更新，不知道返回值和参数类型
+   * 复制图片到剪贴板
    */
-  // copyFile():void;
-  
-  // copyImage():void;
+  copyImage(buffer: Buffer): any;
+
+  /**
+   * 复制文件到剪贴板
+   */
+  copyFile(filepaths: string): any;
 }
 
 interface Utools extends UtoolsEvents, UtoolsWindowMethods, UtoolsFeatures, UtoolsHelper {
-  db: UtoolsDb
+  db: UtoolsDb,
+  robot: any, // todo
 }
 
 declare var utools: Utools;
